@@ -83,16 +83,20 @@ resource "aws_instance" "web" {
   instance_type = "t2.micro"
 
   key_name = "bytejunkie"
-  subnet_id = aws_subnet.swarm-subnet.id
+  #subnet_id = aws_subnet.swarm-subnet.subnet_id
 
-  provisioner "remote-exec" {
-      inline = [
-          "sudo yum update -y"
-      ]
-  }
+  user_data = <<-EOF
+
+    sudo yum update -y
+    EOF
+
 
   tags = {
     Name = "swarm-instance"
     Created_With = "CloudSkiff"
   }
+}
+
+output "subnet_id" {
+  value = aws_subnet.swarm-subnet.subnet_id
 }
