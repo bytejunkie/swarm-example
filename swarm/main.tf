@@ -56,3 +56,8 @@ resource "aws_route_table" "swarm-rt" {
     Created_With = "CloudSkiff"
   }
 }
+
+resource "aws_route_table_association" "route_table_assoc" {
+  subnet_id      = aws_subnet.swarm-subnet.id
+  route_table_id = aws_route_table.swarm-rt.id
+}
