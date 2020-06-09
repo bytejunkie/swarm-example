@@ -23,7 +23,7 @@ resource "aws_subnet" "swarm-subnet" {
 resource "aws_security_group" "swarm-security-group" {
   name        = "swarm_sg"
   description = "Allow docker swarm traffic"
-  vpc_id      = "${aws_vpc.swarm-vpc.id}"
+  vpc_id      = aws_vpc.swarm-vpc.id
 
 
   tags = {
