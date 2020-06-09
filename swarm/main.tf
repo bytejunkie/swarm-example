@@ -3,7 +3,7 @@
 #vpc
 resource "aws_vpc" "swarm-vpc" {
   cidr_block       = "10.0.0.0/16"
-  instance_tenancy = "dedicated"
+  instance_tenancy = "default"
 
   tags = {
     Name = "swarm-vpc"
@@ -77,16 +77,14 @@ data "aws_ami" "amazon-ami" {
   }
 }
 
-
 resource "aws_instance" "web" {
   ami           = data.aws_ami.amazon-ami.id
   instance_type = "t2.micro"
 
   key_name = "bytejunkie"
-  #subnet_id = aws_subnet.swarm-subnet.subnet_id
+  subnet_id = aws_subnet.swarm-subnet.id
 
   user_data = <<-EOF
-
     sudo yum update -y
     EOF
 
@@ -98,5 +96,5 @@ resource "aws_instance" "web" {
 }
 
 output "subnet_id" {
-  value = aws_subnet.swarm-subnet.subnet_id
+  value = aws_subnet.swarm-subnet.id
 }
