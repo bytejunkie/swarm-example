@@ -61,3 +61,29 @@ resource "aws_route_table_association" "route_table_assoc" {
   subnet_id      = aws_subnet.swarm-subnet.id
   route_table_id = aws_route_table.swarm-rt.id
 }
+
+data "aws_ami" "ubuntu" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-trusty-14.04-amd64-server-*"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  owners = ["099720109477"] # Canonical
+}
+
+resource "aws_instance" "web" {
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = "t2.micro"
+
+  tags = {
+    Name = "swarm-instance"
+    Created_With = "CloudSkiff"
+  }
+}
