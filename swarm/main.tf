@@ -84,17 +84,16 @@ resource "aws_instance" "web" {
   key_name = "bytejunkie"
   subnet_id = aws_subnet.swarm-subnet.id
 
-  user_data = <<-EOF
-    sudo yum update -y
-    EOF
-
-
+  user_data = data.template_file.user_data.rendered
+  
   tags = {
     Name = "swarm-instance"
     Created_With = "CloudSkiff"
   }
 }
 
-output "subnet_id" {
-  value = aws_subnet.swarm-subnet.id
+
+
+data "template_file" "user_data" {
+  template = "${file("templates/user_data.tpl")}"
 }
