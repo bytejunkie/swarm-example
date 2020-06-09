@@ -7,6 +7,7 @@ resource "aws_vpc" "swarm-vpc" {
 
   tags = {
     Name = "swarm-vpc"
+    Created_With = "CloudSkiff"
   }
 }
 
@@ -17,6 +18,7 @@ resource "aws_subnet" "swarm-subnet" {
 
   tags = {
     Name = "swarm-subnet"
+    Created_With = "CloudSkiff"
   }
 }
 
@@ -28,6 +30,7 @@ resource "aws_security_group" "swarm-security-group" {
 
   tags = {
     Name = "allow_swarm_traffic"
+    Created_With = "CloudSkiff"
   }
 }
 
@@ -36,6 +39,7 @@ resource "aws_internet_gateway" "swarm-gw" {
 
   tags = {
     Name = "swarm gateway"
+    Created_With = "CloudSkiff"
   }
 }
 
@@ -49,5 +53,6 @@ resource "aws_route_table" "swarm-rt" {
 
   tags = {
     Name = "swarm-route-table"
+    Created_With = "CloudSkiff"
   }
 }
