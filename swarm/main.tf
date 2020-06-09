@@ -82,6 +82,15 @@ resource "aws_instance" "web" {
   ami           = data.aws_ami.amazon-ami.id
   instance_type = "t2.micro"
 
+  key_name = "bytejunkie"
+  subnet_id = aws_subnet.swarm-subnet
+
+  provisioner "remote-exec" {
+      inline = [
+          "sudo yum update -y"
+      ]
+  }
+
   tags = {
     Name = "swarm-instance"
     Created_With = "CloudSkiff"
