@@ -30,3 +30,24 @@ resource "aws_security_group" "swarm-security-group" {
     Name = "allow_swarm_traffic"
   }
 }
+
+resource "aws_internet_gateway" "swarm-gw" {
+  vpc_id = aws_vpc.swarm-vpc.id
+
+  tags = {
+    Name = "swarm gateway"
+  }
+}
+
+resource "aws_route_table" "swarm-rt" {
+  vpc_id = aws_vpc.swarm-vpc.id
+
+  route {
+    cidr_block = "10.0.1.0/24"
+    gateway_id = aws_internet_gateway.swarm-gw.id
+  }
+
+  tags = {
+    Name = "swarm-route-table"
+  }
+}
