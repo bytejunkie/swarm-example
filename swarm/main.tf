@@ -83,7 +83,7 @@ resource "aws_instance" "web" {
   instance_type = "t2.micro"
 
   key_name = "bytejunkie"
-  subnet_id = aws_subnet.swarm-subnet
+  subnet_id = aws_subnet.swarm-subnet.id
 
   provisioner "remote-exec" {
       inline = [
