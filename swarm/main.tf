@@ -62,24 +62,24 @@ resource "aws_route_table_association" "route_table_assoc" {
   route_table_id = aws_route_table.swarm-rt.id
 }
 
-data "aws_ami" "ubuntu" {
+data "aws_ami" "amazon-ami" {
   most_recent = true
+  owners = ["591542846629"] # AWS
 
   filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-trusty-14.04-amd64-server-*"]
+      name   = "name"
+      values = ["*amazon-ecs-optimized"]
   }
 
   filter {
     name   = "virtualization-type"
     values = ["hvm"]
   }
-
-  owners = ["099720109477"] # Canonical
 }
 
+
 resource "aws_instance" "web" {
-  ami           = data.aws_ami.ubuntu.id
+  ami           = data.aws_ami.amazon-ami.id
   instance_type = "t2.micro"
 
   tags = {
