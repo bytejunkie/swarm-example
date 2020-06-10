@@ -31,9 +31,17 @@ resource "aws_security_group" "swarm-security-group" {
 
 
   ingress {
-    description = "TLS from Matts home  "
-    from_port   = 0
-    to_port     = 0
+    description = "SSH from Matts home"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["51.148.145.108/32"]
+  }
+
+  ingress {
+    description = "SSL from Matts home"
+    from_port   = 443
+    to_port     = 443
     protocol    = "tcp"
     cidr_blocks = ["51.148.145.108/32"]
   }
