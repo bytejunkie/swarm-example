@@ -78,7 +78,6 @@ data "aws_ami" "amazon-ami" {
 
   filter {
     name   = "virtualization-type"
-    ProjectName = "Swarm-Example"
     values = ["hvm"]
   }
 }
