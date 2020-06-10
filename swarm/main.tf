@@ -112,6 +112,10 @@ resource "aws_resourcegroups_group" "swarm-rg" {
 {
   "ResourceTypeFilters": [
     "AWS::EC2::Instance",
+    "AWS::EC2::VPC",
+    "AWS::EC2::Subnet",
+    "AWS::EC2::InternetGateway",
+    "AWS::EC2::RouteTable",
     "AWS::EC2::SecurityGroup"
   ],
   "TagFilters": [
