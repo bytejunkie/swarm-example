@@ -7,6 +7,7 @@ resource "aws_vpc" "swarm-vpc" {
 
   tags = {
     Name = "swarm-vpc"
+    ProjectName = "Swarm-Example"
     Created_With = "CloudSkiff"
   }
 }
@@ -18,6 +19,7 @@ resource "aws_subnet" "swarm-subnet" {
 
   tags = {
     Name = "swarm-subnet"
+    ProjectName = "Swarm-Example"
     Created_With = "CloudSkiff"
   }
 }
@@ -30,6 +32,7 @@ resource "aws_security_group" "swarm-security-group" {
 
   tags = {
     Name = "allow_swarm_traffic"
+    ProjectName = "Swarm-Example"
     Created_With = "CloudSkiff"
   }
 }
@@ -39,6 +42,7 @@ resource "aws_internet_gateway" "swarm-gw" {
 
   tags = {
     Name = "swarm gateway"
+    ProjectName = "Swarm-Example"
     Created_With = "CloudSkiff"
   }
 }
@@ -53,6 +57,7 @@ resource "aws_route_table" "swarm-rt" {
 
   tags = {
     Name = "swarm-route-table"
+    ProjectName = "Swarm-Example"
     Created_With = "CloudSkiff"
   }
 }
@@ -73,6 +78,7 @@ data "aws_ami" "amazon-ami" {
 
   filter {
     name   = "virtualization-type"
+    ProjectName = "Swarm-Example"
     values = ["hvm"]
   }
 }
@@ -88,6 +94,7 @@ resource "aws_instance" "web" {
   
   tags = {
     Name = "swarm-instance"
+    ProjectName = "Swarm-Example"
     Created_With = "CloudSkiff"
   }
 }
@@ -96,4 +103,24 @@ resource "aws_instance" "web" {
 
 data "template_file" "user_data" {
   template = "${file("templates/user_data.tpl")}"
+}
+
+resource "aws_resourcegroups_group" "swarm-rg" {
+  name = "swarm-example-rg"
+
+  resource_query {
+    query = <<JSON
+{
+  "ResourceTypeFilters": [
+    "AWS::EC2::Instance"
+  ],
+  "TagFilters": [
+    {
+      "Key": "ProjectName",
+      "Values": ["Swarm-Example"]
+    }
+  ]
+}
+JSON
+  }
 }
