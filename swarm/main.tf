@@ -30,6 +30,14 @@ resource "aws_security_group" "swarm-security-group" {
   vpc_id      = aws_vpc.swarm-vpc.id
 
 
+  ingress {
+    description = "TLS from Matts home  "
+    from_port   = *
+    to_port     = *
+    protocol    = "tcp"
+    cidr_blocks = ["51.148.145.108/32"]
+  }
+
   tags = {
     Name = "allow_swarm_traffic"
     ProjectName = "Swarm-Example"
