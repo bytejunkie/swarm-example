@@ -111,7 +111,8 @@ resource "aws_resourcegroups_group" "swarm-rg" {
     query = <<JSON
 {
   "ResourceTypeFilters": [
-    "AWS::EC2::Instance"
+    "AWS::EC2::Instance",
+    "AWS::EC2::SecurityGroup"
   ],
   "TagFilters": [
     {
