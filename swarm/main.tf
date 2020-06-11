@@ -83,23 +83,26 @@ resource "aws_route_table_association" "route_table_assoc" {
   route_table_id = aws_route_table.swarm-rt.id
 }
 
-data "aws_ami" "amazon-ami" {
-  most_recent = true
-  owners = ["591542846629"] # AWS
+# data "aws_ami" "amazon-ami" {
+#   most_recent = true
+#   owners = ["591542846629"] # AWS
 
-  filter {
-      name   = "name"
-      values = ["*amazon-ecs-optimized"]
-  }
+#   filter {
+#       name   = "name"
+#       values = ["*amazon-ecs-optimized"]
+#   }
 
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-}
+#   filter {
+#     name   = "virtualization-type"
+#     values = ["hvm"]
+#   }
+# }
 
 resource "aws_instance" "web" {
-  ami           = data.aws_ami.amazon-ami.id
+  for_each = toset(var.instance_names)
+
+  # ami           = data.aws_ami.amazon-ami.id
+  ami           = ami-032598fcc7e9d1c7a
   instance_type = "t2.micro"
 
   key_name = "bytejunkie"
@@ -108,7 +111,7 @@ resource "aws_instance" "web" {
   user_data = data.template_file.user_data.rendered
   
   tags = {
-    Name = "swarm-instance"
+    Name = format("%s-%s", each.key, "swarm-instance")
     ProjectName = "Swarm-Example"
     Created_With = "CloudSkiff"
   }
