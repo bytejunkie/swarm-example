@@ -180,7 +180,7 @@ resource "aws_iam_role" "ssm_role" {
             "Action": [
                 "kms:Decrypt"
             ],
-            "Resource": "key-name"
+            "Resource": "*"
         }
     ]
 }
