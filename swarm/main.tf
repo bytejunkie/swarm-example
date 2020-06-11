@@ -174,13 +174,6 @@ resource "aws_iam_role" "ssm_role" {
                 "s3:GetEncryptionConfiguration"
             ],
             "Resource": "*"
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "kms:Decrypt"
-            ],
-            "Resource": "*"
         }
     ]
 }
