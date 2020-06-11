@@ -102,7 +102,7 @@ resource "aws_instance" "web" {
   for_each = toset(var.instance_names)
 
   # ami           = data.aws_ami.amazon-ami.id
-  ami           = ami-032598fcc7e9d1c7a
+  ami           = "ami-032598fcc7e9d1c7a"
   instance_type = "t2.micro"
 
   key_name = "bytejunkie"
@@ -111,7 +111,7 @@ resource "aws_instance" "web" {
   user_data = data.template_file.user_data.rendered
   
   tags = {
-    Name = format("%s-%s", each.key, "swarm-instance")
+    Name  = format("%s-%s", each.key, "swarm-instance")
     ProjectName = "Swarm-Example"
     Created_With = "CloudSkiff"
   }
