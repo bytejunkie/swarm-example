@@ -15,13 +15,11 @@ variable "instance_names" {
 }
 
 
-variable "service_endpoints" {
+variable "interface_service_endpoints" {
     default = {
-        "com.amazonaws.eu-west-2.ssm" = "Interface"
-        "com.amazonaws.eu-west-2.ec2messages" = "Interface"
-        "com.amazonaws.eu-west-2.ec2" = "Interface"
-        "com.amazonaws.eu-west-2.ssmmessages" = "Interface"
-        "com.amazonaws.eu-west-2.s3" = "Gateway"
+        "com.amazonaws.eu-west-2.ssm",
+        "com.amazonaws.eu-west-2.ec2messages",
+        "com.amazonaws.eu-west-2.ec2",
+        "com.amazonaws.eu-west-2.ssmmessages" 
     }
-
 }

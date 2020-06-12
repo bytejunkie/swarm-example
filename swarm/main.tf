@@ -13,15 +13,21 @@ resource "aws_vpc" "swarm-vpc" {
 }
 
 resource "aws_vpc_endpoint" "vpc_endpoints" {
-  for_each = var.service_endpoints
+  for_each = toset(var.interface_service_endpoints)
   
   vpc_id     = aws_vpc.swarm-vpc.id
   service_name = each.key
-  vpc_endpoint_type = each.value
+  vpc_endpoint_type = "Interface"
 
   security_group_ids = [
     aws_security_group.swarm-security-group.id
   ]
+}
+
+resource "aws_vpc_endpoint" "gateay_vpc_endpoints" {
+  vpc_id     = aws_vpc.swarm-vpc.id
+  service_name = "com.amazonaws.eu-west-2.s3"
+  vpc_endpoint_type = "Gateway"
 }
 
 #subnet
@@ -120,7 +126,7 @@ resource "aws_instance" "web" {
   key_name = "bytejunkie"
   subnet_id = aws_subnet.swarm-subnet.id
   iam_instance_profile = aws_iam_instance_profile.swarm_profile.name
-  
+
   user_data = data.template_file.user_data.rendered
   
   tags = {
