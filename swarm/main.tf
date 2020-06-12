@@ -12,6 +12,18 @@ resource "aws_vpc" "swarm-vpc" {
   }
 }
 
+resource "aws_vpc_endpoint" {
+  for_each = var.service_endpoints
+  
+  vpc_id     = aws_vpc.swarm-vpc.id
+  service_name = each.key
+  vpc_endpoint_type = each.values
+
+  security_group_ids = [
+    aws_security_group.swarm-security-group.id
+  ]
+}
+
 #subnet
 resource "aws_subnet" "swarm-subnet" {
   vpc_id     = aws_vpc.swarm-vpc.id
