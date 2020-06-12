@@ -187,13 +187,7 @@ resource "aws_iam_role" "ssm_role" {
                 "ssmmessages:CreateControlChannel",
                 "ssmmessages:CreateDataChannel",
                 "ssmmessages:OpenControlChannel",
-                "ssmmessages:OpenDataChannel"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
+                "ssmmessages:OpenDataChannel",
                 "s3:GetEncryptionConfiguration"
             ],
             "Resource": "*"
