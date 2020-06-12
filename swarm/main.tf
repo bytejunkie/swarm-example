@@ -17,7 +17,7 @@ resource "aws_vpc_endpoint" "vpc_endpoints" {
   
   vpc_id     = aws_vpc.swarm-vpc.id
   service_name = each.key
-  vpc_endpoint_type = each.values
+  vpc_endpoint_type = each.value
 
   security_group_ids = [
     aws_security_group.swarm-security-group.id
