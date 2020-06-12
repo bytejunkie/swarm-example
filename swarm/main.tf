@@ -12,7 +12,7 @@ resource "aws_vpc" "swarm-vpc" {
   }
 }
 
-resource "aws_vpc_endpoint" {
+resource "aws_vpc_endpoint" "vpc_endpoints" {
   for_each = var.service_endpoints
   
   vpc_id     = aws_vpc.swarm-vpc.id
