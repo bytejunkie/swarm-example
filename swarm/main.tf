@@ -169,30 +169,30 @@ JSON
 
 resource "aws_iam_instance_profile" "swarm_profile" {
   name = "swarm_profile"
-  role = aws_iam_role.ssm_role.name
+  role = "AmazonSSMRoleForInstancesQuickSetup"
 }
 
-resource "aws_iam_role" "ssm_role" {
-  name = "ssm_role"
-  path = "/"
+# resource "aws_iam_role" "ssm_role" {
+#   name = "ssm_role"
+#   path = "/"
 
-  assume_role_policy = <<EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "ssm:UpdateInstanceInformation",
-                "ssmmessages:CreateControlChannel",
-                "ssmmessages:CreateDataChannel",
-                "ssmmessages:OpenControlChannel",
-                "ssmmessages:OpenDataChannel",
-                "s3:GetEncryptionConfiguration"
-            ],
-            "Resource": "*"
-        }
-    ]
-}
-EOF
-}
+#   assume_role_policy = <<EOF
+# {
+#     "Version": "2012-10-17",
+#     "Statement": [
+#         {
+#             "Effect": "Allow",
+#             "Action": [
+#                 "ssm:UpdateInstanceInformation",
+#                 "ssmmessages:CreateControlChannel",
+#                 "ssmmessages:CreateDataChannel",
+#                 "ssmmessages:OpenControlChannel",
+#                 "ssmmessages:OpenDataChannel",
+#                 "s3:GetEncryptionConfiguration"
+#             ],
+#             "Resource": "*"
+#         }
+#     ]
+# }
+# EOF
+# }
