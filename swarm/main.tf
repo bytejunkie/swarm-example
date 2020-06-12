@@ -119,7 +119,8 @@ resource "aws_instance" "web" {
 
   key_name = "bytejunkie"
   subnet_id = aws_subnet.swarm-subnet.id
-
+  iam_instance_profile = aws_iam_instance_profile.swarm_profile.name
+  
   user_data = data.template_file.user_data.rendered
   
   tags = {
@@ -160,6 +161,10 @@ JSON
   }
 }
 
+resource "aws_iam_instance_profile" "swarm_profile" {
+  name = "swarm_profile"
+  role = aws_iam_role.ssm_role.name
+}
 
 resource "aws_iam_role" "ssm_role" {
   name = "ssm_role"
