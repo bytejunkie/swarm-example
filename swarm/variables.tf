@@ -16,10 +16,10 @@ variable "instance_names" {
 
 
 variable "interface_service_endpoints" {
-    default = {
+    default = [
         "com.amazonaws.eu-west-2.ssm",
         "com.amazonaws.eu-west-2.ec2messages",
         "com.amazonaws.eu-west-2.ec2",
         "com.amazonaws.eu-west-2.ssmmessages" 
-    }
+    ]
 }
