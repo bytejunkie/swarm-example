@@ -70,12 +70,6 @@ resource "aws_security_group" "swarm-security-group" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  egress {
-    from_port   = 2376
-    to_port     = 2377
-    protocol    = "tcp"
-    cidr_blocks = ["local"]
-  }
 
   tags = {
     Name = "allow_swarm_traffic"
@@ -187,28 +181,3 @@ resource "aws_iam_instance_profile" "swarm_profile" {
   name = "swarm_profile"
   role = "AmazonSSMRoleForInstancesQuickSetup"
 }
-
-# resource "aws_iam_role" "ssm_role" {
-#   name = "ssm_role"
-#   path = "/"
-
-#   assume_role_policy = <<EOF
-# {
-#     "Version": "2012-10-17",
-#     "Statement": [
-#         {
-#             "Effect": "Allow",
-#             "Action": [
-#                 "ssm:UpdateInstanceInformation",
-#                 "ssmmessages:CreateControlChannel",
-#                 "ssmmessages:CreateDataChannel",
-#                 "ssmmessages:OpenControlChannel",
-#                 "ssmmessages:OpenDataChannel",
-#                 "s3:GetEncryptionConfiguration"
-#             ],
-#             "Resource": "*"
-#         }
-#     ]
-# }
-# EOF
-# }
