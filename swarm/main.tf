@@ -64,6 +64,14 @@ resource "aws_security_group" "swarm-security-group" {
     cidr_blocks = ["51.148.145.108/32"]
   }
 
+  egress {
+    description = "internet"
+    from_port   = "all"
+    to_port     = "all"
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   tags = {
     Name = "allow_swarm_traffic"
     ProjectName = "Swarm-Example"
