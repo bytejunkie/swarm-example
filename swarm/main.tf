@@ -70,6 +70,12 @@ resource "aws_security_group" "swarm-security-group" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  egress {
+    from_port   = 2376
+    to_port     = 2377
+    protocol    = "tcp"
+    cidr_blocks = ["local"]
+  }
 
   tags = {
     Name = "allow_swarm_traffic"
