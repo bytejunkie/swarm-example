@@ -139,6 +139,9 @@ resource "aws_instance" "web" {
   key_name = "bytejunkie"
   subnet_id = aws_subnet.swarm-subnet.id
   iam_instance_profile = aws_iam_instance_profile.swarm_profile.name
+  vpc_security_group_ids = [
+    aws_security_group.swarm-security-group.id
+    ]
 
   user_data = data.template_file.user_data.rendered
   
